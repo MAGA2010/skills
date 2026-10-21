@@ -34,16 +34,23 @@ or newer and does not run installation hooks.
 npm install -g github:MAGA2010/data-master#v0.3.0
 data-master setup
 data-master doctor
+data-master skill install
 ```
 
 To install from Python source instead:
 
 ```bash
-git clone https://github.com/MAGA2010/data-master.git
+git clone --branch v0.3.0 --depth 1 https://github.com/MAGA2010/data-master.git
 cd data-master
 python -m pip install .
 data-master doctor
+data-master skill install
 ```
+
+`data-master skill install` registers the bundled skill in the Codex skills directory
+(`$CODEX_HOME/skills/data-master`, or `~/.codex/skills/data-master` by default).
+Restart Codex after installation so it discovers the skill. The installer refuses
+to overwrite an existing copy; use `--target <directory>` for a separate install.
 
 Run the bundled synthetic demonstration, then inspect both the report and audit:
 
@@ -62,11 +69,19 @@ data-master analyze measurements.csv --out outputs/study \
 ```
 
 If the run writes `answers.template.json`, obtain the missing study or cleaning
-decision from the user, save an answers file, and resume from `state.json`.
+decision from the user, fill the template using its stable decision IDs, and save
+the completed file as `outputs/study/answers.json`. Resume the saved run with:
+
+```bash
+data-master resume outputs/study/state.json --answers outputs/study/answers.json
+```
 
 ## Documentation
 
+Reviewed release: `v0.3.0`, commit
+[`9d22e2505071424d7e41dc2ee5b875b45a1ed574`](https://github.com/MAGA2010/data-master/tree/9d22e2505071424d7e41dc2ee5b875b45a1ed574).
+
 - [Source and quick start](https://github.com/MAGA2010/data-master)
-- [Evaluation evidence](https://github.com/MAGA2010/data-master/blob/main/EVALUATION.md)
-- [Validation matrix](https://github.com/MAGA2010/data-master/blob/main/docs/VALIDATION.md)
+- [Evaluation evidence](https://github.com/MAGA2010/data-master/blob/9d22e2505071424d7e41dc2ee5b875b45a1ed574/EVALUATION.md)
+- [Validation matrix](https://github.com/MAGA2010/data-master/blob/9d22e2505071424d7e41dc2ee5b875b45a1ed574/docs/VALIDATION.md)
 - [Agent Skill Exchange](https://agentskillexchange.com/skills/turn-messy-datasets-into-auditable-reports-with-data-master/)
